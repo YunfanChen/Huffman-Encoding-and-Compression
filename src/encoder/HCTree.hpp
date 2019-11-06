@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include <queue>
+#include <stack>
 #include <vector>
 #include "BitInputStream.hpp"
 #include "BitOutputStream.hpp"
@@ -23,7 +24,7 @@ class HCTree {
 
   public:
     /* TODO: add function header and implement */
-    HCTree() {}
+    explicit HCTree() : root(0) { leaves = vector<HCNode*>(256, (HCNode*)0); }
 
     /* TODO: add function header */
     ~HCTree();

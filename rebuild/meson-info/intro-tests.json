@@ -1,1 +1,0 @@
-[{"cmd": ["/Code/cse100_pa3/rebuild/test/test_HCTree.cpp.executable"], "env": {}, "name": "my DictionaryTrie test", "workdir": null, "timeout": 30, "suite": ["pa3_HCTree"], "is_parallel": true}]
