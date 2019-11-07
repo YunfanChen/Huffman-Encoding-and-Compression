@@ -41,8 +41,8 @@ void pseudoCompression(string inFileName, string outFileName) {
     hcTree.build(freq);
 
     ofstream fileout;
-    // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-    fileout.open(outFileName);
+    fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+    // fileout.open(outFileName);
     if (fileout.fail()) {
         cout << "Error: Failed to open output file!" << endl;
         return;
