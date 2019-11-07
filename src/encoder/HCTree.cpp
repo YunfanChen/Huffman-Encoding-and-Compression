@@ -79,17 +79,21 @@ byte HCTree::decode(BitInputStream& in) const { return ' '; }
 byte HCTree::decode(istream& in) const {
     char c;
     HCNode* node = root;
-    while (node->c0 != nullptr || node->c1 != nullptr) {
+    while (1) {
         in.get(c);
+        if (in.eof()) break;
         // cout << "debug get: " << c << endl;
         if (c == '0') {
+            if (node->c0 == nullptr) return -1;
             node = node->c0;
         } else if (c == '1') {
+            if (node->c1 == nullptr) return -1;
             node = node->c1;
         } else {
             return -1;
         }
     }
+    if (node->c0 == nullptr && node->c1 == nullptr) return node->symbol;
     // cout << "my decode symbol is: " << node->symbol << endl;
-    return node->symbol;
+    return -1;
 }

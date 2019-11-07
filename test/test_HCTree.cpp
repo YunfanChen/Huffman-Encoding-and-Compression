@@ -16,8 +16,9 @@ class SimpleHCTreeFixture : public ::testing::Test {
     SimpleHCTreeFixture() {
         // initialization code here
         vector<unsigned int> freqs(256);
-        freqs['a'] = 2;
+        freqs['a'] = 3;
         freqs['b'] = 3;
+        freqs['c'] = 3;
         tree.build(freqs);
     }
 };
@@ -29,6 +30,6 @@ TEST_F(SimpleHCTreeFixture, TEST_ENCODE) {
 }
 
 TEST_F(SimpleHCTreeFixture, TEST_DECODE) {
-    istringstream is("1");
+    istringstream is("11");
     ASSERT_EQ(tree.decode(is), 'b');
 }

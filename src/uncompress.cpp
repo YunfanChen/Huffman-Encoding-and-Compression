@@ -45,20 +45,23 @@ void pseudoDecompression(string inFileName, string outFileName) {
 
     char c;
     string code;
+    byte temp;
     while (1) {
         c = filein.get();
         if (filein.eof()) break;
         code = code + c;
         istringstream is(code);
+        temp = hcTree.decode(is);
         if (map.find(is.str()) != map.end()) {
             fileout << map[is.str()];
             code = "";
-        } else if (hcTree.decode(is) == (byte)-1) {
+        } else if (temp == (byte)-1) {
             continue;
         } else {
-            buffer = hcTree.decode(is);
+            buffer = temp;
             fileout << buffer;
             map[is.str()] = buffer;
+            cout << is.str() << ":" << (int)buffer << endl;
             code = "";
         }
     }
