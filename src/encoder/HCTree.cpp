@@ -58,10 +58,10 @@ void HCTree::encode(byte symbol, ostream& out) const {
     HCNode* node = leaves[symbol];
     stack<char> s;
     while (node != root) {
-        if (node->p->c0 = node) {  // node is left child
+        if (node->p->c0 == node) {  // node is left child
             s.push('0');
             node = node->p;
-        } else if (node->p->c1 = node) {  // node is right child
+        } else if (node->p->c1 == node) {  // node is right child
             s.push('1');
             node = node->p;
         }

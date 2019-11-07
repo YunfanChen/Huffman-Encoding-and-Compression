@@ -28,9 +28,10 @@ void pseudoCompression(string inFileName, string outFileName) {
     byte buffer;
     int index;
 
-    while (!filein.eof()) {
+    while (1) {
         buffer = filein.get();
         index = (int)buffer;
+        if (filein.eof()) break;
         freq[index]++;
     }
     filein.close();
