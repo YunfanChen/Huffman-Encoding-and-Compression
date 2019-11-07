@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * This is for HCNode in HCTree
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #ifndef HCNODE_HPP
 #define HCNODE_HPP

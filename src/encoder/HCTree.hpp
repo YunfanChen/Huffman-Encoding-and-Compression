@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * This is class for HCTree
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #ifndef HCTREE_HPP
 #define HCTREE_HPP
@@ -16,32 +16,36 @@
 
 using namespace std;
 
-/** TODO: class header */
+/** HCTree class */
 class HCTree {
   private:
     HCNode* root;            // the root of HCTree
     vector<HCNode*> leaves;  // a vector storing pointers to all leaf HCNodes
 
+    /* delete all node in HCTree */
+    void deleteAll(HCNode*);
+
   public:
-    /* TODO: add function header and implement */
+    /* Initializes a new empty HCTree. */
     explicit HCTree() : root(0) { leaves = vector<HCNode*>(256, (HCNode*)0); }
 
-    /* TODO: add function header */
+    /* delete the tree */
     ~HCTree();
 
-    /* TODO: add function header */
+    /* Build the HCTree from the given frequency vector. */
     void build(const vector<unsigned int>& freqs);
 
-    /* TODO: add function header */
-    void encode(byte symbol, BitOutputStream& out) const;
+    /* Write the encoding bits of given symbol to ostream.  */
+    // void encode(byte symbol, BitOutputStream& out) const;
 
     /* TODO: add function header */
     void encode(byte symbol, ostream& out) const;
 
     /* TODO: add function header */
-    byte decode(BitInputStream& in) const;
+    // byte decode(BitInputStream& in) const;
 
-    /* TODO: add function header */
+    /* Decode the sequence of bits (represented as char of either ‘0’ or ‘1’)
+     * from istream to return the coded symbol. */
     byte decode(istream& in) const;
 };
 

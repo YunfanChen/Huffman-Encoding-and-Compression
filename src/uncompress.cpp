@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * Performs pseudo decompression on a given file
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #include <fstream>
 #include <iostream>
@@ -12,12 +12,11 @@
 #include "HCNode.hpp"
 #include "HCTree.hpp"
 
-/* TODO: Pseudo decompression with ascii encoding and naive header (checkpoint)
+/* Pseudo decompression with ascii encoding and naive header (checkpoint)
  */
 void pseudoDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
     ifstream filein;
-    // filein.open(inFileName);
     filein.open(inFileName);
     if (filein.fail()) {
         cout << "Error: Failed to open input file!" << endl;
@@ -39,11 +38,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
 
     ofstream fileout;
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-    // fileout.open(outFileName);
-    if (fileout.fail()) {
-        cout << "Error: Failed to open output file!" << endl;
-        return;
-    }
 
     char c;
     string code;
@@ -63,7 +57,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
             buffer = temp;
             fileout << buffer;
             map[is.str()] = buffer;
-            // cout << is.str() << ":" << (int)buffer << endl;
             code = "";
         }
     }
@@ -73,7 +66,7 @@ void pseudoDecompression(string inFileName, string outFileName) {
 }
 
 /* TODO: True decompression with bitwise i/o and small header (final) */
-void trueDecompression(string inFileName, string outFileName) {}
+// void trueDecompression(string inFileName, string outFileName) {}
 
-/* TODO: Main program that runs the uncompress */
+/* Main program that runs the uncompress */
 int main(int argc, char* argv[]) { pseudoDecompression(argv[1], argv[2]); }

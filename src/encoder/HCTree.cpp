@@ -1,16 +1,16 @@
 /**
- * TODO: file header
+ * HCTree class
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #include "HCTree.hpp"
 
 priority_queue<HCNode*, vector<HCNode*>, HCNodePtrComp> pq;
 
-/* TODO */
-HCTree::~HCTree() { delete root; }
+/* delete the tree */
+HCTree::~HCTree() { deleteAll(root); }
 
-/* TODO */
+/* Build the HCTree from the given frequency vector. */
 void HCTree::build(const vector<unsigned int>& freqs) {
     for (int i = 0; i < freqs.size(); i++) {
         if (freqs[i] != 0) {
@@ -51,9 +51,9 @@ void HCTree::build(const vector<unsigned int>& freqs) {
 }
 
 /* TODO */
-void HCTree::encode(byte symbol, BitOutputStream& out) const {}
+// void HCTree::encode(byte symbol, BitOutputStream& out) const {}
 
-/* TODO */
+/* Write the encoding bits of given symbol to ostream.  */
 void HCTree::encode(byte symbol, ostream& out) const {
     HCNode* node = leaves[symbol];
     stack<char> s;
@@ -73,9 +73,10 @@ void HCTree::encode(byte symbol, ostream& out) const {
 }
 
 /* TODO */
-byte HCTree::decode(BitInputStream& in) const { return ' '; }
+// byte HCTree::decode(BitInputStream& in) const { return ' '; }
 
-/* TODO */
+/* Decode the sequence of bits (represented as char of either ‘0’ or ‘1’)
+ * from istream to return the coded symbol. */
 byte HCTree::decode(istream& in) const {
     char c;
     HCNode* node = root;
@@ -86,14 +87,21 @@ byte HCTree::decode(istream& in) const {
         if (c == '0') {
             if (node->c0 == nullptr) return -1;
             node = node->c0;
-        } else if (c == '1') {
+        } else {
             if (node->c1 == nullptr) return -1;
             node = node->c1;
-        } else {
-            return -1;
         }
     }
     if (node->c0 == nullptr && node->c1 == nullptr) return node->symbol;
     // cout << "my decode symbol is: " << node->symbol << endl;
     return -1;
+}
+
+/** Delete all nodes in the tree*/
+void HCTree::deleteAll(HCNode* node) {
+    if (node) {
+        deleteAll(node->c1);
+        deleteAll(node->c0);
+    }
+    delete node;
 }

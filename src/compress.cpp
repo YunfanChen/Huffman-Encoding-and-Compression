@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * Performs pseudo compression on a given file
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #include <fstream>
 #include <iostream>
@@ -14,13 +14,12 @@
 
 using namespace std;
 
-/* TODO: add pseudo compression with ascii encoding and naive header
+/* Add pseudo compression with ascii encoding and naive header
  * (checkpoint) */
 void pseudoCompression(string inFileName, string outFileName) {
     unordered_map<byte, string> map;
     ifstream filein;
     filein.open(inFileName);
-    // filein.open(inFileName);
     if (filein.fail()) {
         cout << "Error: Failed to open input file!" << endl;
         return;
@@ -42,17 +41,11 @@ void pseudoCompression(string inFileName, string outFileName) {
 
     ofstream fileout;
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-    // fileout.open(outFileName);
-    if (fileout.fail()) {
-        cout << "Error: Failed to open output file!" << endl;
-        return;
-    }
 
     for (int i = 0; i < freq.size(); i++) {
         fileout << freq.at(i) << "\n";
     }
 
-    // filein.open(inFileName);
     filein.open(inFileName);
     while (1) {
         ostringstream os;
@@ -75,7 +68,7 @@ void pseudoCompression(string inFileName, string outFileName) {
 }
 
 /* TODO: True compression with bitwise i/o and small header (final) */
-void trueCompression(string inFileName, string outFileName) {}
+// void trueCompression(string inFileName, string outFileName) {}
 
-/* TODO: Main program that runs the compress */
+/* Main program that runs the compress */
 int main(int argc, char* argv[]) { pseudoCompression(argv[1], argv[2]); }
