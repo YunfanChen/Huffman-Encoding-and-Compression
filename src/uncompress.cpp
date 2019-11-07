@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <unordered_map>
 
 #include "FileUtils.hpp"
 #include "HCNode.hpp"
@@ -14,6 +15,7 @@
 /* TODO: Pseudo decompression with ascii encoding and naive header (checkpoint)
  */
 void pseudoDecompression(string inFileName, string outFileName) {
+    unordered_map<string, byte> map;
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
@@ -47,9 +49,13 @@ void pseudoDecompression(string inFileName, string outFileName) {
     for (int i = 0; i < count; i++) {
         c = filein.get();
         istringstream is(c + "");
-        buffer = hcTree.decode(is);
-        if (buffer == (byte)-1) break;
-        fileout << buffer;
+        if (map.find(is.str()) != map.end()) {
+            fileout << map[is.str()];
+        } else {
+            buffer = hcTree.decode(is);
+            if (buffer == (byte)-1) break;
+            fileout << buffer;
+        }
     }
 
     filein.close();
