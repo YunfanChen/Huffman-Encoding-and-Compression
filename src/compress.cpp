@@ -51,10 +51,11 @@ void pseudoCompression(string inFileName, string outFileName) {
     }
 
     filein.open(inFileName);
-    while (!filein.eof()) {
+    while (1) {
         ostringstream os;
         char c = filein.get();
         buffer = (byte)c;
+        if (filein.eof()) break;
         if (map.find(buffer) != map.end()) {
             fileout << map[buffer];
         } else {
@@ -75,5 +76,5 @@ void trueCompression(string inFileName, string outFileName) {}
 
 /* TODO: Main program that runs the compress */
 int main(int argc, char* argv[]) {
-    // pseudoCompression("/data/check1.txt", "/data/check1encode");
+    // pseudoCompression("data/check1.txt", "data/check1encode.txt");
 }

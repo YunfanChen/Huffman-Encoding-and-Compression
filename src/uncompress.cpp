@@ -25,14 +25,12 @@ void pseudoDecompression(string inFileName, string outFileName) {
     vector<unsigned int> freq(256);
     byte buffer;
     int num;
-    int count;
     string line;
 
     for (int i = 0; i < freq.size(); i++) {
         getline(filein, line);
         num = stoi(line);
         freq[i] = num;
-        count = count + num;
     }
 
     HCTree hcTree;
@@ -46,15 +44,22 @@ void pseudoDecompression(string inFileName, string outFileName) {
     }
 
     char c;
-    for (int i = 0; i < count; i++) {
+    string code;
+    while (1) {
         c = filein.get();
-        istringstream is(c + "");
+        if (filein.eof()) break;
+        code = code + c;
+        istringstream is(code);
         if (map.find(is.str()) != map.end()) {
             fileout << map[is.str()];
+            code = "";
+        } else if (hcTree.decode(is) == (byte)-1) {
+            continue;
         } else {
             buffer = hcTree.decode(is);
-            if (buffer == (byte)-1) break;
             fileout << buffer;
+            map[is.str()] = buffer;
+            code = "";
         }
     }
 
