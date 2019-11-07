@@ -76,6 +76,4 @@ void pseudoDecompression(string inFileName, string outFileName) {
 void trueDecompression(string inFileName, string outFileName) {}
 
 /* TODO: Main program that runs the uncompress */
-int main(int argc, char* argv[]) {
-    pseudoDecompression("data/check1encode.txt", "data/check1decode.txt");
-}
+int main(int argc, char* argv[]) { pseudoDecompression(argv[1], argv[2]); }

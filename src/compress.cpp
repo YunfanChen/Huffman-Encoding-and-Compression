@@ -78,6 +78,4 @@ void pseudoCompression(string inFileName, string outFileName) {
 void trueCompression(string inFileName, string outFileName) {}
 
 /* TODO: Main program that runs the compress */
-int main(int argc, char* argv[]) {
-    // pseudoCompression("data/check1.txt", "data/check1encode.txt");
-}
+int main(int argc, char* argv[]) { pseudoCompression(argv[1], argv[2]); }
