@@ -19,7 +19,8 @@ using namespace std;
 void pseudoCompression(string inFileName, string outFileName) {
     unordered_map<byte, string> map;
     ifstream filein;
-    filein.open(inFileName);
+    filein.open(inFileName, ios::binary);
+    // filein.open(inFileName);
     if (filein.fail()) {
         cout << "Error: Failed to open input file!" << endl;
         return;
@@ -40,7 +41,8 @@ void pseudoCompression(string inFileName, string outFileName) {
     hcTree.build(freq);
 
     ofstream fileout;
-    fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+    // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+    fileout.open(outFileName, ios::binary);
     if (fileout.fail()) {
         cout << "Error: Failed to open output file!" << endl;
         return;
@@ -50,7 +52,8 @@ void pseudoCompression(string inFileName, string outFileName) {
         fileout << freq.at(i) << "\n";
     }
 
-    filein.open(inFileName);
+    // filein.open(inFileName);
+    filein.open(inFileName, ios::binary);
     while (1) {
         ostringstream os;
         char c = filein.get();

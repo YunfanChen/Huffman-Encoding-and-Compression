@@ -17,7 +17,8 @@
 void pseudoDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
     ifstream filein;
-    filein.open(inFileName);
+    // filein.open(inFileName);
+    filein.open(outFileName, ios::binary);
     if (filein.fail()) {
         cout << "Error: Failed to open input file!" << endl;
         return;
@@ -37,7 +38,8 @@ void pseudoDecompression(string inFileName, string outFileName) {
     hcTree.build(freq);
 
     ofstream fileout;
-    fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+    // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+    fileout.open(outFileName, ios::binary);
     if (fileout.fail()) {
         cout << "Error: Failed to open output file!" << endl;
         return;
