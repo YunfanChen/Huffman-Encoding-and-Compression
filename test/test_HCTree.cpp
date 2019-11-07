@@ -30,5 +30,6 @@ TEST_F(SimpleHCTreeFixture, TEST_ENCODE) {
 
 TEST_F(SimpleHCTreeFixture, TEST_DECODE) {
     istringstream is("1");
+    // cout << "my output 2:" << tree.decode(is) << endl;
     ASSERT_EQ(tree.decode(is), 'b');
 }

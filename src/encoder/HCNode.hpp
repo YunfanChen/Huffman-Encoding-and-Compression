@@ -43,9 +43,9 @@ struct HCNodePtrComp {
     /* Implement a comparator of HCNode pointer in struct HCNodePtrComp. */
     bool operator()(HCNode*& lhs, HCNode*& rhs) const {
         if (lhs->count == rhs->count) {
-            return lhs->symbol > rhs->symbol;
+            return lhs->symbol < rhs->symbol;
         }
-        return lhs->count < rhs->count;
+        return lhs->count > rhs->count;
     }
 };
 #endif  // HCNODE_HPP

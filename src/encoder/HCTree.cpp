@@ -32,11 +32,13 @@ void HCTree::build(const vector<unsigned int>& freqs) {
 
         HCNode* left = pq.top();
         father->c0 = left;
+        cout << "c0 is :" << left->symbol << endl;
         left->p = father;
         pq.pop();
 
         HCNode* right = pq.top();
         father->c1 = right;
+        cout << "c1 is :" << right->symbol << endl;
         right->p = father;
         pq.pop();
 
@@ -54,21 +56,20 @@ void HCTree::encode(byte symbol, BitOutputStream& out) const {}
 /* TODO */
 void HCTree::encode(byte symbol, ostream& out) const {
     HCNode* node = leaves[symbol];
-    stack<int> s;
+    stack<char> s;
     while (node != root) {
         if (node->p->c0 = node) {  // node is left child
-            s.push(0);
+            s.push('0');
             node = node->p;
         } else if (node->p->c1 = node) {  // node is right child
-            s.push(1);
+            s.push('1');
             node = node->p;
         }
     }
     while (!s.empty()) {
-        cout << s.top();
+        out << (s.top());
         s.pop();
     }
-    cout << endl;
 }
 
 /* TODO */
@@ -79,7 +80,8 @@ byte HCTree::decode(istream& in) const {
     char c;
     HCNode* node = root;
     while (node->c0 != nullptr || node->c1 != nullptr) {
-        in >> c;
+        in.get(c);
+        cout << "debug get: " << c << endl;
         if (c == '0') {
             node = node->c0;
         } else if (c == '1') {
@@ -88,5 +90,6 @@ byte HCTree::decode(istream& in) const {
             return -1;
         }
     }
+    cout << "my decode symbol is: " << node->symbol << endl;
     return node->symbol;
 }
