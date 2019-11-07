@@ -19,7 +19,7 @@ using namespace std;
 void pseudoCompression(string inFileName, string outFileName) {
     unordered_map<byte, string> map;
     ifstream filein;
-    filein.open(inFileName, ios::binary);
+    filein.open(inFileName);
     // filein.open(inFileName);
     if (filein.fail()) {
         cout << "Error: Failed to open input file!" << endl;
@@ -42,7 +42,7 @@ void pseudoCompression(string inFileName, string outFileName) {
 
     ofstream fileout;
     // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-    fileout.open(outFileName, ios::binary);
+    fileout.open(outFileName);
     if (fileout.fail()) {
         cout << "Error: Failed to open output file!" << endl;
         return;
@@ -53,7 +53,7 @@ void pseudoCompression(string inFileName, string outFileName) {
     }
 
     // filein.open(inFileName);
-    filein.open(inFileName, ios::binary);
+    filein.open(inFileName);
     while (1) {
         ostringstream os;
         char c = filein.get();
