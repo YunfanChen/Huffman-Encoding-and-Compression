@@ -61,7 +61,7 @@ void pseudoDecompression(string inFileName, string outFileName) {
             buffer = temp;
             fileout << buffer;
             map[is.str()] = buffer;
-            cout << is.str() << ":" << (int)buffer << endl;
+            // cout << is.str() << ":" << (int)buffer << endl;
             code = "";
         }
     }
