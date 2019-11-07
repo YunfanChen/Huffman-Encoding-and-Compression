@@ -86,3 +86,19 @@ TEST_F(MyHCTree2, TEST_DECODE) {
     istringstream is("11");
     ASSERT_EQ(tree.decode(is), (byte)-1);
 }
+
+class MyHCTree3 : public ::testing::Test {
+  protected:
+    HCTree tree;
+
+  public:
+    MyHCTree3() {
+        // initialization code here
+        vector<unsigned int> freqs(256, 0);
+        tree.build(freqs);
+    }
+};
+TEST_F(MyHCTree3, TEST_DECODE) {
+    istringstream is("11");
+    ASSERT_EQ(tree.decode(is), (byte)-1);
+}
