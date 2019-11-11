@@ -87,9 +87,11 @@ byte HCTree::decode(istream& in) const {
         if (c == '0') {
             if (node->c0 == nullptr) return -1;
             node = node->c0;
-        } else {
+        } else if (c == '1') {
             if (node->c1 == nullptr) return -1;
             node = node->c1;
+        } else {
+            return -1;
         }
     }
     if (node->c0 == nullptr && node->c1 == nullptr) return node->symbol;
