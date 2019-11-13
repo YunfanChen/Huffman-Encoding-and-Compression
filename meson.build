@@ -5,8 +5,11 @@ project('pa3_HCTree', 'cpp',
                      'cpp_std=c++14'])
 
 # === src dependencies ===
+cxxopts_proj = subproject('cxxopts')
+cxxopts_dep = cxxopts_proj.get_variable('cxxopts_dep')
 # === end src dependencies ===
 subdir('src')
+subdir('subprojects/cxxopts')
 
 # === test dependencies ===
 gtest_proj = subproject('gtest')

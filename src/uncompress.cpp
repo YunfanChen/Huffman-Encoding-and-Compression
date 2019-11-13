@@ -66,7 +66,7 @@ void pseudoDecompression(string inFileName, string outFileName) {
 }
 
 /* TODO: True decompression with bitwise i/o and small header (final) */
-// void trueDecompression(string inFileName, string outFileName) {}
+void trueDecompression(string inFileName, string outFileName) {}
 
 /* Main program that runs the uncompress */
 int main(int argc, char* argv[]) { pseudoDecompression(argv[1], argv[2]); }
