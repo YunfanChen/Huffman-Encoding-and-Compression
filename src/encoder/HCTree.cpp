@@ -51,7 +51,23 @@ void HCTree::build(const vector<unsigned int>& freqs) {
 }
 
 /* TODO */
-// void HCTree::encode(byte symbol, BitOutputStream& out) const {}
+void HCTree::encode(byte symbol, BitOutputStream& out) const {
+    HCNode* node = leaves[symbol];
+    stack<char> s;
+    while (node != root) {
+        if (node->p->c0 == node) {  // node is left child
+            s.push('0');
+            node = node->p;
+        } else if (node->p->c1 == node) {  // node is right child
+            s.push('1');
+            node = node->p;
+        }
+    }
+    while (!s.empty()) {
+        out.writeBit(s.top());
+        s.pop();
+    }
+}
 
 /* Write the encoding bits of given symbol to ostream.  */
 void HCTree::encode(byte symbol, ostream& out) const {
@@ -73,7 +89,25 @@ void HCTree::encode(byte symbol, ostream& out) const {
 }
 
 /* TODO */
-// byte HCTree::decode(BitInputStream& in) const { return ' '; }
+byte HCTree::decode(BitInputStream& in) const {
+    HCNode* node = root;
+    int curBit;
+
+    while (node->c0 || node->c1) {
+        curBit = in.readBit();
+        if (curBit == 1) {
+            if (node->c1 == nullptr) return -1;
+            node = node->c1;
+        } else if (curBit == 0) {
+            if (node->c0 == nullptr) return -1;
+            node = node->c0;
+        } else {
+            return -1;
+        }
+    }
+    if (node->c0 == nullptr && node->c1 == nullptr) return node->symbol;
+    return -1;
+}
 
 /* Decode the sequence of bits (represented as char of either ‘0’ or ‘1’)
  * from istream to return the coded symbol. */
@@ -83,7 +117,6 @@ byte HCTree::decode(istream& in) const {
     while (1) {
         in.get(c);
         if (in.eof()) break;
-        // cout << "debug get: " << c << endl;
         if (c == '0') {
             if (node->c0 == nullptr) return -1;
             node = node->c0;
@@ -95,7 +128,6 @@ byte HCTree::decode(istream& in) const {
         }
     }
     if (node->c0 == nullptr && node->c1 == nullptr) return node->symbol;
-    // cout << "my decode symbol is: " << node->symbol << endl;
     return -1;
 }
 

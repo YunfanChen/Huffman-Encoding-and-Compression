@@ -21,7 +21,10 @@ class BitOutputStream {
 
   public:
     /* TODO: add function header and implement */
-    explicit BitOutputStream(ostream& os) : out(os){};
+    explicit BitOutputStream(ostream& os) : out(os) {
+        buf = 0;
+        nbits = 0;
+    };
 
     /* TODO: add function header */
     void flush();

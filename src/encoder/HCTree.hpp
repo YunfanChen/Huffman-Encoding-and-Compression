@@ -36,13 +36,13 @@ class HCTree {
     void build(const vector<unsigned int>& freqs);
 
     /* Write the encoding bits of given symbol to ostream.  */
-    // void encode(byte symbol, BitOutputStream& out) const;
+    void encode(byte symbol, BitOutputStream& out) const;
 
     /* TODO: add function header */
     void encode(byte symbol, ostream& out) const;
 
     /* TODO: add function header */
-    // byte decode(BitInputStream& in) const;
+    byte decode(BitInputStream& in) const;
 
     /* Decode the sequence of bits (represented as char of either ‘0’ or ‘1’)
      * from istream to return the coded symbol. */
