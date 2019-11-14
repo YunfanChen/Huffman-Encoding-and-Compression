@@ -45,7 +45,7 @@ void pseudoCompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     for (int i = 0; i < freq.size(); i++) {
-        fileout << freq.at(i) << "\n";
+        fileout << freq.at(i) << " ";
     }
 
     filein.open(inFileName);
@@ -71,53 +71,6 @@ void pseudoCompression(string inFileName, string outFileName) {
 
 /* TODO: True compression with bitwise i/o and small header (final) */
 void trueCompression(string inFileName, string outFileName) {
-    // unordered_map<byte, string> map;
-    // ifstream filein;
-    // filein.open(inFileName);
-    // if (filein.fail()) {
-    //     cout << inFileName << endl;
-    //     cout << "Error: Failed to open input file!" << endl;
-    //     return;
-    // }
-    // vector<unsigned int> freq(256, 0);
-    // BitInputStream inputStream(filein);
-    // byte buffer;
-    // int index;
-
-    // while (1) {
-    //     buffer = filein.get();
-    //     index = (int)buffer;
-    //     if (filein.eof()) break;
-    //     freq[index]++;
-    // }
-    // filein.close();
-
-    // HCTree hcTree;
-    // hcTree.build(freq);
-
-    // ofstream fileout;
-    // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-
-    // for (int i = 0; i < freq.size(); i++) {
-    //     fileout << freq.at(i) << "\n";
-    // }
-
-    // filein.open(inFileName);
-    // BitOutputStream outputStream(fileout);
-
-    // while (1) {
-    //     char c = filein.get();
-    //     buffer = (byte)c;
-    //     if (filein.eof()) break;
-    //     hcTree.encode(buffer, outputStream);
-    //     outputStream.flush();
-    // }
-    // outputStream.flush();
-
-    // filein.close();
-    // fileout.close();
-
-    // return;
     unordered_map<byte, string> map;
     ifstream filein;
     filein.open(inFileName);
@@ -146,7 +99,7 @@ void trueCompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     for (int i = 0; i < freq.size(); i++) {
-        fileout << freq.at(i) << "\n";
+        fileout << " " << freq.at(i);
     }
 
     filein.open(inFileName);

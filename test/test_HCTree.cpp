@@ -102,3 +102,33 @@ TEST_F(MyHCTree3, TEST_DECODE) {
     istringstream is("11");
     ASSERT_EQ(tree.decode(is), (byte)-1);
 }
+
+// class MyHCTree4 : public ::testing::Test {
+//   protected:
+//     HCTree tree;
+
+//   public:
+//     MyHCTree4() {
+//         // initialization code here
+//         vector<unsigned int> freqs(256);
+//         freqs['a'] = 3;
+//         freqs['b'] = 3;
+//         freqs['c'] = 3;
+//         tree.build(freqs);
+//     }
+// };
+
+// TEST_F(MyHCTree4, TEST_ENCODE) {
+//     stringstream ss;
+//     BitOutputStream bos(ss);
+//     tree.encode('a', bos);
+//     ASSERT_EQ(ss.str(), "0");
+// }
+
+// TEST_F(MyHCTree4, TEST_DECODE) {
+//     stringstream ss;
+//     ss.put(11);
+//     BitInputStream inputStream(ss);
+//     // istringstream is("11");
+//     ASSERT_EQ(tree.decode(inputStream), 'b');
+// }
