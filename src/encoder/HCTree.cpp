@@ -67,6 +67,7 @@ void HCTree::encode(byte symbol, BitOutputStream& out) const {
         out.writeBit(s.top());
         s.pop();
     }
+    out.flush();
 }
 
 /* Write the encoding bits of given symbol to ostream.  */

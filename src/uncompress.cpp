@@ -70,46 +70,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
 
 /* TODO: True decompression with bitwise i/o and small header (final) */
 void trueDecompression(string inFileName, string outFileName) {
-    // unordered_map<string, byte> map;
-    // ifstream filein;
-    // filein.open(inFileName);
-    // if (filein.fail()) {
-    //     cout << "Error: Failed to open input file!" << endl;
-    //     return;
-    // }
-    // vector<unsigned int> freq(256);
-
-    // byte buffer;
-    // int num;
-    // string line;
-
-    // for (int i = 0; i < freq.size(); i++) {
-    //     getline(filein, line);
-    //     num = stoi(line);
-    //     freq[i] = num;
-    // }
-
-    // HCTree hcTree;
-    // hcTree.build(freq);
-
-    // ofstream fileout;
-    // fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-
-    // char c;
-    // string code;
-    // byte temp;
-    // BitInputStream inputStream(filein);
-    // while (1) {
-    //     c = filein.get();
-    //     if (filein.eof()) break;
-
-    //     buffer = hcTree.decode(inputStream);
-    //     if (buffer == (byte)-1) break;
-    //     fileout.put(buffer);
-    // }
-
-    // filein.close();
-    // fileout.close();
     unordered_map<string, byte> map;
     ifstream filein;
 
@@ -122,12 +82,10 @@ void trueDecompression(string inFileName, string outFileName) {
     vector<unsigned int> freq(256);
     byte buffer;
     int num;
-    string line;
 
     BitInputStream inputStream(filein);
     for (int i = 0; i < freq.size(); i++) {
-        getline(filein, line);
-        num = stoi(line);
+        filein >> num;
         freq[i] = num;
     }
 
@@ -138,28 +96,43 @@ void trueDecompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     char c;
+    c = filein.get();
     string code;
     byte temp;
-    BitOutputStream outputStream(fileout);
+    // stringstream ss;
+
+    // BitOutputStream outputStream(ss);
+    // BitInputStream inputStream(ss);
     while (1) {
-        // c = filein.get();
+        stringstream ss;
+        c = filein.get();
+        bitset<64> bits;
+        for (int i = 0; i < 8; i++) {
+            bits[i] = ((c >> i) & 1) + "";
+            // cout << bits[i];
+        }
+        // cout << endl;
+        code = (byte)c;
+
         if (filein.eof()) break;
-        // code = code + c;
-        // istringstream is(code);
+
+        // cout << code << endl;
+        // string ascii = string(1, stoi(code, nullptr, 2));
+        ss.str(code);
+        BitInputStream inputStream(ss);
         temp = hcTree.decode(inputStream);
-        if (temp == (byte)-1) break;
-        // if (map.find(temp) != map.end()) {
-        //     fileout << map[is.str()];
-        //     code = "";
-        // } else if (temp == (byte)-1) {
-        //     continue;
-        // } else {
-        // buffer = temp;
-        // fileout << buffer;
-        fileout.put(temp);
-        //     map[is.str()] = buffer;
-        //     code = "";
-        // }
+        string bytecode = ss.get() + "";
+        if (map.find(bytecode) != map.end()) {
+            fileout << map[bytecode];
+            code = "";
+        } else if (temp == (byte)-1) {
+            continue;
+        } else {
+            buffer = temp;
+            fileout << buffer;
+            map[bytecode] = buffer;
+            code = "";
+        }
     }
 
     filein.close();
@@ -194,5 +167,4 @@ int main(int argc, char* argv[]) {
     } else {
         pseudoDecompression(argv[1], argv[2]);
     }
-    // pseudoDecompression(argv[1], argv[2]);
 }

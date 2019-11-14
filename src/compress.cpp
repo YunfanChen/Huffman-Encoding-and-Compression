@@ -99,26 +99,29 @@ void trueCompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     for (int i = 0; i < freq.size(); i++) {
-        fileout << " " << freq.at(i);
+        fileout << freq.at(i) << " ";
     }
 
     filein.open(inFileName);
-    BitOutputStream outputStream(fileout);
+    // stringstream ss;
+    // BitOutputStream outputStream(ss);
+
     while (1) {
-        ostringstream os;
         char c = filein.get();
+        stringstream ss;
+        BitOutputStream outputStream(ss);
         buffer = (byte)c;
         if (filein.eof()) break;
-        // if (map.find(buffer) != map.end()) {
-        //     fileout << map[buffer];
-        // } else {
-        hcTree.encode(buffer, outputStream);
-        // outputStream.flush();
-        // map[buffer] = os.str();
-        // fileout << os.str();
-        //}
+        if (map.find(buffer) != map.end()) {
+            fileout << map[buffer];
+
+        } else {
+            hcTree.encode(buffer, outputStream);
+            map[buffer] = ss.get();
+            fileout << map[buffer];
+            // cout << c << ":" << map[buffer] << endl;
+        }
     }
-    outputStream.flush();
 
     filein.close();
     fileout.close();
