@@ -18,7 +18,7 @@ unsigned int BitInputStream::readBit() {
         if (!in.good()) return -1;
     }
     if (in.good()) {
-        int bit = ((buf & (1 << nbits)) ? 1 : 0);
+        int bit = ((buf & (1 << (nbits - 1))) ? 1 : 0);
         nbits--;
         return bit;
     } else {

@@ -8,10 +8,10 @@
 #include <sstream>
 #include <unordered_map>
 
-#include "/Code/cse100_pa3/subprojects/cxxopts/cxxopts.hpp"
 #include "FileUtils.hpp"
 #include "HCNode.hpp"
 #include "HCTree.hpp"
+#include "cxxopts.hpp"
 
 using namespace std;
 
@@ -22,6 +22,7 @@ void pseudoCompression(string inFileName, string outFileName) {
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
+        cout << inFileName << endl;
         cout << "Error: Failed to open input file!" << endl;
         return;
     }
@@ -94,6 +95,5 @@ int main(int argc, char* argv[]) {
         cout << options.help({""}) << std::endl;
         exit(0);
     }
-
-    pseudoCompression(argv[1], argv[2]);
+    pseudoCompression(argv[2], argv[3]);
 }
