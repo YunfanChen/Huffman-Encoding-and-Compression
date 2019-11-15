@@ -34,6 +34,64 @@ inline string change(char c) {
 
 /* Pseudo decompression with ascii encoding and naive header (checkpoint)
  */
+// void pseudoDecompression(string inFileName, string outFileName) {
+//     unordered_map<string, byte> map;
+//     ifstream filein;
+//     filein.open(inFileName);
+//     if (filein.fail()) {
+//         cout << "Error: Failed to open input file!" << endl;
+//         return;
+//     }
+//     vector<unsigned int> freq(256);
+//     byte buffer;
+//     int num;
+//     int count;
+//     string line;
+//     char cc;
+
+//     // for (int i = 0; i < freq.size(); i++) {
+//     //     filein >> num;
+//     //     freq[i] = num;
+//     // }
+
+//     for (int i = 0; i < freq.size(); i++) {
+//         getline(filein, line);
+//         num = stoi(line);
+//         freq[i] = num;
+//     }
+
+//     HCTree hcTree;
+//     hcTree.build(freq);
+
+//     ofstream fileout;
+//     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+
+//     char c;
+//     string code;
+//     byte temp;
+//     while (1) {
+//         c = filein.get();
+//         if (filein.eof()) break;
+//         code = code + c;
+//         istringstream is(code);
+//         temp = hcTree.decode(is);
+//         if (map.find(is.str()) != map.end()) {
+//             fileout << map[is.str()];
+//             code = "";
+//         } else if (temp == (byte)-1) {
+//             continue;
+//         } else {
+//             buffer = temp;
+//             fileout << buffer;
+//             map[is.str()] = buffer;
+//             code = "";
+//         }
+//     }
+
+//     filein.close();
+//     fileout.close();
+// }
+
 void pseudoDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
     ifstream filein;
@@ -45,14 +103,7 @@ void pseudoDecompression(string inFileName, string outFileName) {
     vector<unsigned int> freq(256);
     byte buffer;
     int num;
-    int count;
     string line;
-    char cc;
-
-    // for (int i = 0; i < freq.size(); i++) {
-    //     filein >> num;
-    //     freq[i] = num;
-    // }
 
     for (int i = 0; i < freq.size(); i++) {
         getline(filein, line);
@@ -141,10 +192,8 @@ void trueDecompression(string inFileName, string outFileName) {
 
             value = value + read;
         }
-        cout << value << endl;
 
         freq[key] = binary_to_decimal(value);
-        cout << key << ":" << binary_to_decimal(value) << endl;
     }
 
     HCTree hcTree;

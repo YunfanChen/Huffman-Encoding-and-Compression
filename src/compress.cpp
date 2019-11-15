@@ -35,11 +35,63 @@ inline string change(char c) {
 
 /* Add pseudo compression with ascii encoding and naive header
  * (checkpoint) */
+// void pseudoCompression(string inFileName, string outFileName) {
+//     unordered_map<byte, string> map;
+//     ifstream filein;
+//     filein.open(inFileName);
+//     if (filein.fail()) {
+//         cout << "Error: Failed to open input file!" << endl;
+//         return;
+//     }
+//     vector<unsigned int> freq(256, 0);
+//     byte buffer;
+//     int index;
+
+//     while (1) {
+//         buffer = filein.get();
+//         index = (int)buffer;
+//         if (filein.eof()) break;
+//         freq[index]++;
+//     }
+//     filein.close();
+
+//     HCTree hcTree;
+//     hcTree.build(freq);
+
+//     ofstream fileout;
+//     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
+
+//     for (int i = 0; i < freq.size(); i++) {
+//         fileout << freq.at(i) << "\n";
+//     }
+
+//     filein.open(inFileName);
+//     while (1) {
+//         ostringstream os;
+//         char c = filein.get();
+//         buffer = (byte)c;
+//         if (filein.eof()) break;
+//         if (map.find(buffer) != map.end()) {
+//             fileout << map[buffer];
+//         } else {
+//             hcTree.encode(buffer, os);
+//             map[buffer] = os.str();
+//             fileout << os.str();
+//         }
+//     }
+
+//     filein.close();
+//     fileout.close();
+
+//     return;
+// }
+
 void pseudoCompression(string inFileName, string outFileName) {
     unordered_map<byte, string> map;
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
+        cout << inFileName << endl;
         cout << "Error: Failed to open input file!" << endl;
         return;
     }
