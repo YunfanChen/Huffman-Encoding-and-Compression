@@ -128,22 +128,23 @@ void trueDecompression(string inFileName, string outFileName) {
     filein >> tem;
     int nz = binary_to_decimal(tem);
 
-    // cout << numBits << endl;
+    char read;
 
     for (int i = 0; i < nz; i++) {
-        filein >> tem;
-        int sym, pos;
-        // cout << "len:" << tem.length() << endl;
-        if (tem.length() == numBits) {
-            sym = 10;
-            pos = 0;
-            // cout << "jin lai" << endl;
-        } else {
-            sym = tem[0];
-            pos = 1;
+        read = filein.get();
+        string code;
+        read = filein.get();
+        int key = read;
+        string value;
+        for (int i = 0; i < numBits; i++) {
+            read = filein.get();
+
+            value = value + read;
         }
-        // cout << "tem0:" << tem[0] << "temstr:" << tem.substr(pos) << endl;
-        freq[sym] = binary_to_decimal(tem.substr(pos));
+        cout << value << endl;
+
+        freq[key] = binary_to_decimal(value);
+        cout << key << ":" << binary_to_decimal(value) << endl;
     }
 
     HCTree hcTree;
