@@ -12,6 +12,7 @@
 #include "HCNode.hpp"
 #include "HCTree.hpp"
 #include "cxxopts.hpp"
+#include "math.h"
 
 using namespace std;
 
@@ -39,7 +40,6 @@ void pseudoCompression(string inFileName, string outFileName) {
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
-        cout << inFileName << endl;
         cout << "Error: Failed to open input file!" << endl;
         return;
     }
@@ -86,13 +86,21 @@ void pseudoCompression(string inFileName, string outFileName) {
     return;
 }
 
+// change number to a specific length string
+string num2Binary(int n, int len) {
+    string res;
+    for (int i = len; i >= 0; i--) {
+        res += to_string((n >> i) & 1);
+    }
+    return res;
+}
+
 /* TODO: True compression with bitwise i/o and small header (final) */
 void trueCompression(string inFileName, string outFileName) {
     unordered_map<byte, int> map;
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
-        cout << inFileName << endl;
         cout << "Error: Failed to open input file!" << endl;
         return;
     }
@@ -100,12 +108,19 @@ void trueCompression(string inFileName, string outFileName) {
     BitInputStream inputStream(filein);
     byte buffer;
     int index;
+    int maxnum = 0;
 
     while (1) {
         buffer = filein.get();
         index = (int)buffer;
         if (filein.eof()) break;
         freq[index]++;
+        if (freq[index] > maxnum) maxnum = freq[index];
+    }
+    int numBits = ceil(log(maxnum) / log(2)) + 1;
+    int nz = 0;  // calculate number of non zero freqency char
+    for (int i = 0; i < freq.size(); i++) {
+        if (freq.at(i) != 0) nz++;
     }
     filein.close();
 
@@ -115,8 +130,14 @@ void trueCompression(string inFileName, string outFileName) {
     ofstream fileout;
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
+    fileout << num2Binary(numBits, 5) << " ";
+    fileout << num2Binary(nz, 8) << " ";
+
     for (int i = 0; i < freq.size(); i++) {
-        fileout << freq.at(i) << " ";
+        if (freq.at(i) != 0) {
+            fileout << char(i) << num2Binary(freq.at(i), numBits - 1) << " ";
+            cout << i << endl;
+        }
     }
 
     filein.open(inFileName);

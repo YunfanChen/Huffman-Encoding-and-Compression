@@ -12,6 +12,7 @@
 #include "HCNode.hpp"
 #include "HCTree.hpp"
 #include "cxxopts.hpp"
+#include "math.h"
 
 inline string change(char c) {
     string data;
@@ -91,6 +92,14 @@ void pseudoDecompression(string inFileName, string outFileName) {
     fileout.close();
 }
 
+int binary_to_decimal(string s) {
+    int k = 0, sum = 0;
+    for (int j = s.length(); j > 0; j--) {
+        if (s[k++] == '1') sum += (int)pow(2, j - 1);
+    }
+    return sum;
+}
+
 /* TODO: True decompression with bitwise i/o and small header (final) */
 void trueDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
@@ -102,14 +111,39 @@ void trueDecompression(string inFileName, string outFileName) {
         cout << "Error: Failed to open input file!" << endl;
         return;
     }
-    vector<unsigned int> freq(256);
+    vector<unsigned int> freq(256, 0);
     byte buffer;
     int num;
 
     BitInputStream inputStream(filein);
-    for (int i = 0; i < freq.size(); i++) {
-        filein >> num;
-        freq[i] = num;
+    // for (int i = 0; i < freq.size(); i++) {
+    //     filein >> num;
+    //     freq[i] = num;
+    // }
+
+    string tem;
+    filein >> tem;
+    int numBits = binary_to_decimal(tem);
+
+    filein >> tem;
+    int nz = binary_to_decimal(tem);
+
+    cout << numBits << endl;
+
+    for (int i = 0; i < nz; i++) {
+        filein >> tem;
+        int sym, pos;
+        cout << "len:" << tem.length() << endl;
+        if (tem.length() == numBits) {
+            sym = 10;
+            pos = 0;
+            cout << "jin lai" << endl;
+        } else {
+            sym = tem[0];
+            pos = 1;
+        }
+        cout << "tem0:" << tem[0] << "temstr:" << tem.substr(pos) << endl;
+        freq[sym] = binary_to_decimal(tem.substr(pos));
     }
 
     HCTree hcTree;
