@@ -15,6 +15,23 @@
 
 using namespace std;
 
+inline string change(char c) {
+    string data;
+    for (int i = 0; i < 8; i++) {
+        if ((c >> (i - 1)) & 0x01 == 1) {
+            data += "1";
+        } else {
+            data += "0";
+        }
+    }
+    for (int a = 1; a < 5; a++) {
+        char x = data[a];
+        data[a] = data[8 - a];
+        data[8 - a] = x;
+    }
+    return data;
+}
+
 /* Add pseudo compression with ascii encoding and naive header
  * (checkpoint) */
 void pseudoCompression(string inFileName, string outFileName) {
@@ -71,7 +88,7 @@ void pseudoCompression(string inFileName, string outFileName) {
 
 /* TODO: True compression with bitwise i/o and small header (final) */
 void trueCompression(string inFileName, string outFileName) {
-    unordered_map<byte, string> map;
+    unordered_map<byte, int> map;
     ifstream filein;
     filein.open(inFileName);
     if (filein.fail()) {
@@ -113,13 +130,15 @@ void trueCompression(string inFileName, string outFileName) {
         buffer = (byte)c;
         if (filein.eof()) break;
         if (map.find(buffer) != map.end()) {
-            fileout << map[buffer];
+            char value = map[buffer];
+            fileout << value;
 
         } else {
             hcTree.encode(buffer, outputStream);
             map[buffer] = ss.get();
-            fileout << map[buffer];
-            // cout << c << ":" << map[buffer] << endl;
+            char value = map[buffer];
+            fileout << value;
+            cout << c << ":" << map[buffer] << endl;
         }
     }
 

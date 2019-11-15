@@ -13,6 +13,24 @@
 #include "HCTree.hpp"
 #include "cxxopts.hpp"
 
+inline string change(char c) {
+    string data;
+    for (int i = 0; i < 8; i++) {
+        //  data+=c&(0x01<<i);
+        if ((c >> (i - 1)) & 0x01 == 1) {
+            data += "1";
+        } else {
+            data += "0";
+        }
+    }
+    for (int a = 1; a < 5; a++) {
+        char x = data[a];
+        data[a] = data[8 - a];
+        data[8 - a] = x;
+    }
+    return data;
+}
+
 /* Pseudo decompression with ascii encoding and naive header (checkpoint)
  */
 void pseudoDecompression(string inFileName, string outFileName) {
@@ -99,40 +117,19 @@ void trueDecompression(string inFileName, string outFileName) {
     c = filein.get();
     string code;
     byte temp;
-    // stringstream ss;
-
-    // BitOutputStream outputStream(ss);
-    // BitInputStream inputStream(ss);
     while (1) {
         stringstream ss;
         c = filein.get();
-        bitset<64> bits;
-        for (int i = 0; i < 8; i++) {
-            bits[i] = ((c >> i) & 1) + "";
-            // cout << bits[i];
-        }
-        // cout << endl;
-        code = (byte)c;
+
+        code = change(c);
+        string ascii = string(1, stoi(code, nullptr, 2));
 
         if (filein.eof()) break;
-
-        // cout << code << endl;
-        // string ascii = string(1, stoi(code, nullptr, 2));
-        ss.str(code);
+        ss.str(ascii);
         BitInputStream inputStream(ss);
         temp = hcTree.decode(inputStream);
-        string bytecode = ss.get() + "";
-        if (map.find(bytecode) != map.end()) {
-            fileout << map[bytecode];
-            code = "";
-        } else if (temp == (byte)-1) {
-            continue;
-        } else {
-            buffer = temp;
-            fileout << buffer;
-            map[bytecode] = buffer;
-            code = "";
-        }
+        cout << temp << endl;
+        fileout << temp;
     }
 
     filein.close();
