@@ -3,7 +3,7 @@ subdir('bitStream/output')
 subdir('bitStream')
 subdir('encoder')
 
-#  Define autocomplete_exe to output executable file named 
+# TODO: Define autocomplete_exe to output executable file named 
 #       autocomplete.cpp.executable
 
 

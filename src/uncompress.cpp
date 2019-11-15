@@ -14,85 +14,6 @@
 #include "cxxopts.hpp"
 #include "math.h"
 
-/** transfor a char to bineary int */
-inline string change(char c) {
-    string data;
-    for (int i = 0; i < 8; i++) {
-        //  data+=c&(0x01<<i);
-        if ((c >> (i - 1)) & 0x01 == 1) {
-            data += "1";
-        } else {
-            data += "0";
-        }
-    }
-    for (int a = 1; a < 5; a++) {
-        char x = data[a];
-        data[a] = data[8 - a];
-        data[8 - a] = x;
-    }
-    return data;
-}
-
-/* Pseudo decompression with ascii encoding and naive header (checkpoint)
- */
-// void pseudoDecompression(string inFileName, string outFileName) {
-//     unordered_map<string, byte> map;
-//     ifstream filein;
-//     filein.open(inFileName);
-//     if (filein.fail()) {
-//         cout << "Error: Failed to open input file!" << endl;
-//         return;
-//     }
-//     vector<unsigned int> freq(256);
-//     byte buffer;
-//     int num;
-//     int count;
-//     string line;
-//     char cc;
-
-//     // for (int i = 0; i < freq.size(); i++) {
-//     //     filein >> num;
-//     //     freq[i] = num;
-//     // }
-
-//     for (int i = 0; i < freq.size(); i++) {
-//         getline(filein, line);
-//         num = stoi(line);
-//         freq[i] = num;
-//     }
-
-//     HCTree hcTree;
-//     hcTree.build(freq);
-
-//     ofstream fileout;
-//     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
-
-//     char c;
-//     string code;
-//     byte temp;
-//     while (1) {
-//         c = filein.get();
-//         if (filein.eof()) break;
-//         code = code + c;
-//         istringstream is(code);
-//         temp = hcTree.decode(is);
-//         if (map.find(is.str()) != map.end()) {
-//             fileout << map[is.str()];
-//             code = "";
-//         } else if (temp == (byte)-1) {
-//             continue;
-//         } else {
-//             buffer = temp;
-//             fileout << buffer;
-//             map[is.str()] = buffer;
-//             code = "";
-//         }
-//     }
-
-//     filein.close();
-//     fileout.close();
-// }
-
 /* Pseudo decompression with ascii encoding and naive header (checkpoint)
  */
 void pseudoDecompression(string inFileName, string outFileName) {
@@ -144,15 +65,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
 
     filein.close();
     fileout.close();
-}
-
-/** transfor a binary string to int*/
-int binary_to_decimal(string s) {
-    int k = 0, sum = 0;
-    for (int j = s.length(); j > 0; j--) {
-        if (s[k++] == '1') sum += (int)pow(2, j - 1);
-    }
-    return sum;
 }
 
 /* True decompression with bitwise i/o and small header (final) */
@@ -222,6 +134,34 @@ void trueDecompression(string inFileName, string outFileName) {
 
     filein.close();
     fileout.close();
+}
+
+/** transfor a binary string to int*/
+int binary_to_decimal(string s) {
+    int k = 0, sum = 0;
+    for (int j = s.length(); j > 0; j--) {
+        if (s[k++] == '1') sum += (int)pow(2, j - 1);
+    }
+    return sum;
+}
+
+/** transfor a char to bineary int */
+inline string change(char c) {
+    string data;
+    for (int i = 0; i < 8; i++) {
+        //  data+=c&(0x01<<i);
+        if ((c >> (i - 1)) & 0x01 == 1) {
+            data += "1";
+        } else {
+            data += "0";
+        }
+    }
+    for (int a = 1; a < 5; a++) {
+        char x = data[a];
+        data[a] = data[8 - a];
+        data[8 - a] = x;
+    }
+    return data;
 }
 
 /* Main program that runs the uncompress */
