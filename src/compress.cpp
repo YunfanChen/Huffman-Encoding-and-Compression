@@ -138,7 +138,7 @@ void trueCompression(string inFileName, string outFileName) {
             map[buffer] = ss.get();
             char value = map[buffer];
             fileout << value;
-            cout << c << ":" << map[buffer] << endl;
+            // cout << c << ":" << map[buffer] << endl;
         }
     }
 

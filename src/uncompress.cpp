@@ -128,7 +128,6 @@ void trueDecompression(string inFileName, string outFileName) {
         ss.str(ascii);
         BitInputStream inputStream(ss);
         temp = hcTree.decode(inputStream);
-        cout << temp << endl;
         fileout << temp;
     }
 
