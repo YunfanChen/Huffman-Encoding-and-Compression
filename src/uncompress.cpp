@@ -128,21 +128,21 @@ void trueDecompression(string inFileName, string outFileName) {
     filein >> tem;
     int nz = binary_to_decimal(tem);
 
-    cout << numBits << endl;
+    // cout << numBits << endl;
 
     for (int i = 0; i < nz; i++) {
         filein >> tem;
         int sym, pos;
-        cout << "len:" << tem.length() << endl;
+        // cout << "len:" << tem.length() << endl;
         if (tem.length() == numBits) {
             sym = 10;
             pos = 0;
-            cout << "jin lai" << endl;
+            // cout << "jin lai" << endl;
         } else {
             sym = tem[0];
             pos = 1;
         }
-        cout << "tem0:" << tem[0] << "temstr:" << tem.substr(pos) << endl;
+        // cout << "tem0:" << tem[0] << "temstr:" << tem.substr(pos) << endl;
         freq[sym] = binary_to_decimal(tem.substr(pos));
     }
 

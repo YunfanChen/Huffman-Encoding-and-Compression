@@ -136,7 +136,7 @@ void trueCompression(string inFileName, string outFileName) {
     for (int i = 0; i < freq.size(); i++) {
         if (freq.at(i) != 0) {
             fileout << char(i) << num2Binary(freq.at(i), numBits - 1) << " ";
-            cout << i << endl;
+            // cout << i << endl;
         }
     }
 
