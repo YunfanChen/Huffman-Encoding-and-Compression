@@ -48,8 +48,14 @@ void pseudoDecompression(string inFileName, string outFileName) {
     string line;
     char cc;
 
+    // for (int i = 0; i < freq.size(); i++) {
+    //     filein >> num;
+    //     freq[i] = num;
+    // }
+
     for (int i = 0; i < freq.size(); i++) {
-        filein >> num;
+        getline(filein, line);
+        num = stoi(line);
         freq[i] = num;
     }
 
@@ -60,7 +66,6 @@ void pseudoDecompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     char c;
-    c = filein.get();
     string code;
     byte temp;
     while (1) {

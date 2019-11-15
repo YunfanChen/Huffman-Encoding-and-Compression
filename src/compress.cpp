@@ -62,7 +62,7 @@ void pseudoCompression(string inFileName, string outFileName) {
     fileout.open(outFileName, std::ofstream::out | std::ofstream::trunc);
 
     for (int i = 0; i < freq.size(); i++) {
-        fileout << freq.at(i) << " ";
+        fileout << freq.at(i) << "\n";
     }
 
     filein.open(inFileName);
