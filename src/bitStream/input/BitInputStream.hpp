@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * This is a class for BitInputStream
  *
- * Author:
+ * Author:Yunfan Chen
  */
 #ifndef BITINPUTSTREAM_HPP
 #define BITINPUTSTREAM_HPP
@@ -12,7 +12,7 @@ typedef unsigned char byte;
 
 using namespace std;
 
-/** TODO: class header */
+/** class header */
 class BitInputStream {
   private:
     char buf;     // one byte buffer of bits
@@ -20,16 +20,16 @@ class BitInputStream {
     istream& in;  // reference to the input stream to use
 
   public:
-    /* TODO: add function header and implement */
+    /* initialize variables */
     explicit BitInputStream(istream& is) : in(is) {
         nbits = 0;
         buf = 0;
     };
 
-    /* TODO: add function header */
+    /* Fill the inputstream */
     void fill();
 
-    /* TODO: add function header */
+    /* read a bit */
     unsigned int readBit();
 };
 

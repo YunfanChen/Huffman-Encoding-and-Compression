@@ -14,6 +14,7 @@
 #include "cxxopts.hpp"
 #include "math.h"
 
+/** transfor a char to bineary int */
 inline string change(char c) {
     string data;
     for (int i = 0; i < 8; i++) {
@@ -92,6 +93,8 @@ inline string change(char c) {
 //     fileout.close();
 // }
 
+/* Pseudo decompression with ascii encoding and naive header (checkpoint)
+ */
 void pseudoDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
     ifstream filein;
@@ -143,6 +146,7 @@ void pseudoDecompression(string inFileName, string outFileName) {
     fileout.close();
 }
 
+/** transfor a binary string to int*/
 int binary_to_decimal(string s) {
     int k = 0, sum = 0;
     for (int j = s.length(); j > 0; j--) {
@@ -151,7 +155,7 @@ int binary_to_decimal(string s) {
     return sum;
 }
 
-/* TODO: True decompression with bitwise i/o and small header (final) */
+/* True decompression with bitwise i/o and small header (final) */
 void trueDecompression(string inFileName, string outFileName) {
     unordered_map<string, byte> map;
     ifstream filein;
@@ -167,10 +171,6 @@ void trueDecompression(string inFileName, string outFileName) {
     int num;
 
     BitInputStream inputStream(filein);
-    // for (int i = 0; i < freq.size(); i++) {
-    //     filein >> num;
-    //     freq[i] = num;
-    // }
 
     string tem;
     filein >> tem;

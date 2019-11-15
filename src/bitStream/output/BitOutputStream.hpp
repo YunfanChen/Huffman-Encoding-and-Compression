@@ -1,7 +1,7 @@
 /**
- * TODO: file header
+ * This is a class for BitOutputStream
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #ifndef BITOUTPUTSTREAM_HPP
 #define BITOUTPUTSTREAM_HPP
@@ -12,7 +12,7 @@ typedef unsigned char byte;
 
 using namespace std;
 
-/** TODO: class header */
+/** class header */
 class BitOutputStream {
   private:
     char buf;      // one byte buffer of bits
@@ -20,16 +20,16 @@ class BitOutputStream {
     ostream& out;  // reference to the output stream to use
 
   public:
-    /* TODO: add function header and implement */
+    /* initialize the variables */
     explicit BitOutputStream(ostream& os) : out(os) {
         buf = 0;
         nbits = 0;
     };
 
-    /* TODO: add function header */
+    /* write 8 bit to out */
     void flush();
 
-    /* TODO: add function header */
+    /* write one bit */
     void writeBit(int i);
 };
 

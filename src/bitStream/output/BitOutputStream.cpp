@@ -1,18 +1,18 @@
 /**
- * TODO: file header
+ * a class for BitOutputStream
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #include "BitOutputStream.hpp"
 
-/* TODO */
+/* write 8 bits to out */
 void BitOutputStream::flush() {
     out.put(buf);
     buf = 0;
     nbits = 0;
 }
 
-/* TODO */
+/* write one bit */
 void BitOutputStream::writeBit(int i) {
     if (out.good()) {
         int num = i << (7 - nbits);

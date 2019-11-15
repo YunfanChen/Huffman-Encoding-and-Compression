@@ -16,6 +16,7 @@
 
 using namespace std;
 
+/** transfor a char to bineary int */
 inline string change(char c) {
     string data;
     for (int i = 0; i < 8; i++) {
@@ -86,6 +87,8 @@ inline string change(char c) {
 //     return;
 // }
 
+/* Add pseudo compression with ascii encoding and naive header
+ * (checkpoint) */
 void pseudoCompression(string inFileName, string outFileName) {
     unordered_map<byte, string> map;
     ifstream filein;
@@ -147,7 +150,7 @@ string num2Binary(int n, int len) {
     return res;
 }
 
-/* TODO: True compression with bitwise i/o and small header (final) */
+/* True compression with bitwise i/o and small header (final) */
 void trueCompression(string inFileName, string outFileName) {
     unordered_map<byte, int> map;
     ifstream filein;
@@ -188,13 +191,10 @@ void trueCompression(string inFileName, string outFileName) {
     for (int i = 0; i < freq.size(); i++) {
         if (freq.at(i) != 0) {
             fileout << char(i) << num2Binary(freq.at(i), numBits - 1) << " ";
-            // cout << i << endl;
         }
     }
 
     filein.open(inFileName);
-    // stringstream ss;
-    // BitOutputStream outputStream(ss);
 
     while (1) {
         char c = filein.get();
@@ -205,13 +205,11 @@ void trueCompression(string inFileName, string outFileName) {
         if (map.find(buffer) != map.end()) {
             char value = map[buffer];
             fileout << value;
-
         } else {
             hcTree.encode(buffer, outputStream);
             map[buffer] = ss.get();
             char value = map[buffer];
             fileout << value;
-            // cout << c << ":" << map[buffer] << endl;
         }
     }
 

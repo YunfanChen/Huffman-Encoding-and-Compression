@@ -38,10 +38,10 @@ class HCTree {
     /* Write the encoding bits of given symbol to ostream.  */
     void encode(byte symbol, BitOutputStream& out) const;
 
-    /* TODO: add function header */
+    /* encode by ostream */
     void encode(byte symbol, ostream& out) const;
 
-    /* TODO: add function header */
+    /* decode by BitInputStream */
     byte decode(BitInputStream& in) const;
 
     /* Decode the sequence of bits (represented as char of either ‘0’ or ‘1’)

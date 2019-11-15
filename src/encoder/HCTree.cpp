@@ -50,7 +50,7 @@ void HCTree::build(const vector<unsigned int>& freqs) {
     pq.pop();
 }
 
-/* TODO */
+/* encode by BitOutputStream */
 void HCTree::encode(byte symbol, BitOutputStream& out) const {
     HCNode* node = leaves[symbol];
     stack<char> s;
@@ -89,7 +89,7 @@ void HCTree::encode(byte symbol, ostream& out) const {
     }
 }
 
-/* TODO */
+/* decode by BitInputStream */
 byte HCTree::decode(BitInputStream& in) const {
     HCNode* node = root;
     int curBit;

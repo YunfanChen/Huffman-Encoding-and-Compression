@@ -1,17 +1,17 @@
 /**
- * TODO: file header
+ * This is a class for BitInputStream.
  *
- * Author:
+ * Author: Yunfan Chen
  */
 #include "BitInputStream.hpp"
 
-/* TODO */
+/* Fill the inputstream */
 void BitInputStream::fill() {
     buf = in.get();
     nbits = 8;
 }
 
-/* TODO */
+/* read a bit */
 unsigned int BitInputStream::readBit() {
     if (nbits == 0) {
         fill();
